@@ -2,33 +2,55 @@ import SwiftUI
 
 struct LevelSelectView: View {
   var onSelectLevel: (Int) -> Void
-  var unlockedLevel: Int
+  var unlockedLevel: Int = 5  // Optional: still here for future use
+
+  @State private var pressedLevel: Int? = nil
 
   var body: some View {
-    VStack(spacing: 20) {
-      Spacer()
+    ZStack {
+      Image("stonewall")
+        .interpolation(.none)
+        .resizable()
+        .scaledToFill()
+        .ignoresSafeArea()
 
-      Text("Select a Level")
-        .font(.largeTitle)
-        .bold()
-
-      ForEach(1...5, id: \.self) { level in
-        Button(action: {
-          onSelectLevel(level)
-        }) {
-          Text("Level \(level)")
-            .frame(maxWidth: .infinity)
-            .padding()
-            .background(unlockedLevel >= level ? Color.blue : Color.gray)
-            .foregroundColor(.white)
-            .clipShape(Capsule())
-            .padding(.horizontal)
+      VStack(spacing: 32) {
+        Spacer()
+  
+        ForEach(1...5, id: \.self) { level in
+          let isUnlocked = true  // For testing
+          let isPressed = pressedLevel == level
+          let imageName = isPressed ? "lv\(level)buttondown" : "lv\(level)buttonup"
+          
+          Image(imageName)
+            .interpolation(.none)
+            .resizable()
+            .frame(width: 280, height: 80)
+            .opacity(isUnlocked ? 1.0 : 0.5)
+            .contentShape(Rectangle()) // Ensures entire image is tappable
+            .gesture(
+              DragGesture(minimumDistance: 0)
+                .onChanged { _ in
+                  if isUnlocked { pressedLevel = level }
+                }
+                .onEnded { _ in
+                  if isUnlocked {
+                    pressedLevel = nil
+                    onSelectLevel(level)
+                  }
+                }
+            )
         }
-        .disabled(unlockedLevel < level)
-      }
 
-      Spacer()
+        Spacer()
+      }
+      .padding()
     }
-    .padding()
   }
+}
+
+#Preview {
+  LevelSelectView(onSelectLevel: { level in
+    print("Selected level \(level)")
+  })
 }

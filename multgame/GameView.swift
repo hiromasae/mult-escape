@@ -65,7 +65,7 @@ struct GameView: View {
 
         if let number = currentNumber {
           Text("1 × \(number) = \(userAnswer)")
-            .font(.largeTitle)
+            .font(.largeTitle).colorInvert()
             .opacity(gameOver ? 0.5 : 1.0)
             .padding()
         }

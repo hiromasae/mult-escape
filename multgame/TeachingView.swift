@@ -85,8 +85,8 @@ struct TeachingView: View {
                 SlimeView(
                   frameNames: item.isTapped
                     ? ["slime_tapped"]
-                    : ["greenslimeidle1", "greenslimeidle2", "greenslimeidle3",
-                       "greenslimeidle2"],
+                    : ["greenslime1", "greenslime2", "greenslime3",
+                       "greenslime2"],
                   frameDuration: 0.2,
                   size: 150
                 )
