@@ -66,6 +66,9 @@ A complete set of levels covering the 1s multiplication table, with teaching and
 
 ## Wireframes
 
+![Wireframe1](assets/multescapewireframe1.jpg)
+![Wireframe2](assets/multescapewireframe2.jpg)
+
 ---
 
 ## Submission
