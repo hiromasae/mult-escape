@@ -8,6 +8,8 @@ Set in a dungeon where the only way out is to defeat enemies using the power of 
 
 All sprites were hand-drawn by me, and GenAI was used as a development aid during the coding process.
 
+---
+
 ## Proposal
 
 ### Must-Haves
@@ -66,8 +68,17 @@ A complete set of levels covering the 1s multiplication table, with teaching and
 
 ## Wireframes
 
-![Wireframe1](assets/multescapewireframe1.jpg)
-![Wireframe2](assets/multescapewireframe2.jpg)
+During the ideation process, I drew inspiration from the Japanese mobile puzzle game Puzzle & Dragons—a turn-based RPG set in a dungeon hallway. I also took cues from the classic Windows XP educational game Timez Attack, which genuinely taught me my times tables and left a lasting impression with its gameplay loop.
+
+<p align="center">
+  <img src="assets/multescapewireframe1.jpg" alt="Views Wireframe" width="500">
+</p>
+
+The boss battle screen was part of my vision from the beginning and would give me a chance to show off my drawing chops.
+
+<p align="center">
+  <img src="assets/multescapewireframe2.jpg" alt="Boss Wireframe" width="500">
+</p>
 
 ---
 
@@ -127,3 +138,25 @@ A complete set of levels covering the 1s multiplication table, with teaching and
 
 - ❌ Use of SpriteKit for performance optimization and improved development workflow (may not be feasible due to hardware constraints)
   - My 2019 MacBook Pro couldn’t handle SpriteKit efficiently, so I stuck with SwiftUI.
+
+---
+
+## Screenshots
+
+The title screen was inspired by games like Minecraft and Terraria, where the main menu feels full of life. The changing colors were a personal touch to add a bit of flair.
+
+<p align="center">
+  <img src="assets/multescapetitle.png" alt="Title Screenshot" width="200">
+</p>
+
+The learning gameplay was heavily inspired by Timez Attack, where the player collects multiple instances of a number to help visualize multiplication.
+
+<p align="center">
+  <img src="assets/multescapelearn.png" alt="Learning Screenshot" width="200">
+</p>
+
+As mentioned earlier, the boss gameplay was the part I was most excited to implement. It was inspired by games like Puzzle & Dragons and Terraria (which also features a Slime King boss).
+
+<p align="center">
+  <img src="assets/multescapeboss.png" alt="Boss Screenshot" width="200">
+</p>
