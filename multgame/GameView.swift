@@ -7,7 +7,7 @@ struct GameView: View {
   var onComplete: () -> Void
   var onExit: () -> Void
   let level: Int
-
+  
   // MARK: - State
   @State private var currentProblemIndex = 0
   @State private var userAnswer = ""
@@ -16,21 +16,21 @@ struct GameView: View {
   @State private var didWin = false
   @State private var bossShake = false
   @State private var heartShake = false
-
+  
   // MARK: - Computed
   var currentNumber: Int? {
     guard currentProblemIndex < problems.count else { return nil }
     return problems[currentProblemIndex]
   }
-
+  
   var enemyHealth: Int {
     problems.count - currentProblemIndex
   }
-
+  
   var gameOver: Bool {
     playerHearts == 0 || currentProblemIndex >= problems.count
   }
-
+  
   var body: some View {
     ZStack {
       Image("dungeonhallbackground")
@@ -40,7 +40,7 @@ struct GameView: View {
         .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
         .clipped()
         .ignoresSafeArea()
-
+      
       VStack(spacing: 20) {
         if showHearts {
           HStack(spacing: 5) {
@@ -56,9 +56,9 @@ struct GameView: View {
           }
           .frame(maxWidth: .infinity, alignment: .leading)
         }
-
+        
         Spacer().padding(.top)
-
+        
         HStack {
           if !didWin {
             VStack(spacing: spacingForLevel) {
@@ -70,7 +70,7 @@ struct GameView: View {
               .frame(width: 240)
               .animation(.easeInOut, value: enemyHealth)
               .padding(.bottom, 4)
-
+              
               SlimeView(
                 frameNames: bossFrames,
                 frameDuration: 0.2,
@@ -92,9 +92,9 @@ struct GameView: View {
             .opacity(gameOver ? 0.5 : 1.0)
             .padding()
         }
-
+        
         Spacer()
-
+        
         if didWin {
           Text("🎉 Level Complete!")
             .font(.largeTitle)
@@ -107,7 +107,7 @@ struct GameView: View {
             .font(.largeTitle)
             .foregroundColor(.red)
         }
-
+        
         if gameOver {
           ImageButton(label: "back") {
             if didWin {
@@ -118,16 +118,16 @@ struct GameView: View {
             }
           }
           Spacer()
-          .padding(.bottom)
+            .padding(.bottom)
         }
-
+        
         if !gameOver {
           NumpadView(userAnswer: $userAnswer, onSubmit: checkAnswer)
         }
       }
       .padding()
       .frame(maxHeight: .infinity, alignment: .bottom)
-
+      
       if isPaused {
         ZStack {
           PauseMenuView(
@@ -140,11 +140,11 @@ struct GameView: View {
       }
     }
   }
-
+  
   // MARK: - Logic
   private func checkAnswer() {
     guard !gameOver, let number = currentNumber else { return }
-
+    
     if let answer = Int(userAnswer), answer == 1 * number {
       bossShake = true
       withAnimation(.default) {
@@ -154,7 +154,7 @@ struct GameView: View {
       DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
         bossShake = false
       }
-
+      
       if currentProblemIndex >= problems.count {
         didWin = true
       }
@@ -165,7 +165,7 @@ struct GameView: View {
         heartShake = false
       }
     }
-
+    
     userAnswer = ""
   }
   
@@ -194,11 +194,11 @@ struct GameView: View {
       return -100
     }
   }
-
+  
   struct PauseButton: View {
     let action: () -> Void
     @State private var isPressed = false
-
+    
     var body: some View {
       Button(action: action) {
         Image(isPressed ? "pausebuttondown" : "pausebuttonup")
@@ -221,9 +221,9 @@ struct GameView: View {
   struct ImageButton: View {
     let label: String
     let action: () -> Void
-
+    
     @State private var isPressed = false
-
+    
     var body: some View {
       Button(action: action) {
         Image(isPressed ? "\(label)buttondown" : "\(label)buttonup")
@@ -242,21 +242,11 @@ struct GameView: View {
       )
     }
   }
-
-
+  
+  
   struct NoEffectButtonStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
       configuration.label
     }
   }
-}
-
-#Preview {
-  GameView(
-    problems: [1, 2, 3],
-    showHearts: true,
-    onComplete: { print("Preview complete") },
-    onExit: { print("Preview exit") },
-    level: 5
-  )
 }

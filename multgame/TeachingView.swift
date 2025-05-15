@@ -252,12 +252,3 @@ struct TeachingView: View {
     }
   }
 }
-
-#Preview {
-  TeachingView(
-    problem: 1,
-    onComplete: { print("Preview completed") },
-    onExit: { print("Preview exited") },
-    level: 3
-  )
-}

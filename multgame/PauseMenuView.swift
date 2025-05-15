@@ -3,25 +3,23 @@ import SwiftUI
 struct PauseMenuView: View {
   var onResume: () -> Void
   var onExit: () -> Void
-
+  
   var body: some View {
     ZStack {
       Color.black.opacity(0.5)
-        .ignoresSafeArea() 
+        .ignoresSafeArea()
       VStack(spacing: 20) {
         ImageButton(label: "resume", action: onResume)
         ImageButton(label: "back", action: onExit)
       }
-      .frame(maxWidth: .infinity, alignment: .center) // ✅ center horizontally
+      .frame(maxWidth: .infinity, alignment: .center)
     }
-    .frame(maxWidth: .infinity, maxHeight: .infinity) // ✅ expand to screen bounds
+    .frame(maxWidth: .infinity, maxHeight: .infinity)
   }
 }
 
-
-
 struct ImageButton: View {
-  let label: String  // e.g. "resume", "back"
+  let label: String
   let action: () -> Void
   
   @State private var isPressed = false
@@ -49,11 +47,4 @@ struct NoEffectButtonStyle: ButtonStyle {
   func makeBody(configuration: Configuration) -> some View {
     configuration.label
   }
-}
-
-#Preview {
-  PauseMenuView(
-    onResume: { print("Resume tapped") },
-    onExit: { print("Exit tapped") }
-  )
 }

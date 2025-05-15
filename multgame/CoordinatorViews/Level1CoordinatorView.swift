@@ -5,7 +5,7 @@ struct Level1CoordinatorView: View {
   let onExit: () -> Void
   
   @State private var stageIndex = 0
-
+  
   private let problems = [1, 2, 3]
   
   var body: some View {
@@ -25,10 +25,10 @@ struct Level1CoordinatorView: View {
       AnyView(GameView(problems: problems.shuffled(), showHearts: true,
                        onComplete: advanceStage, onExit: onExit, level: 1)
         .id("game-1-2-3"))
-
+      
     ]
   }
-
+  
   private func advanceStage() {
     stageIndex += 1
     if stageIndex == stageSequence.count {

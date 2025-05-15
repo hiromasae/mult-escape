@@ -3,7 +3,7 @@ import SwiftUI
 struct LevelSelectView: View {
   var onSelectLevel: (Int) -> Void
   var unlockedLevel: Int = 1
-
+  
   @State private var pressedLevel: Int? = nil
   
   var body: some View {
@@ -13,18 +13,18 @@ struct LevelSelectView: View {
         .resizable()
         .scaledToFill()
         .ignoresSafeArea()
-
+      
       VStack(spacing: 32) {
         Spacer()
-  
+        
         ForEach(1...5, id: \.self) { level in
           let isUnlocked = level == 1 || level <= unlockedLevel
           let isPressed = pressedLevel == level
-
+          
           let imageName = isUnlocked
-            ? (isPressed ? "lv\(level)buttondown" : "lv\(level)buttonup")
-            : "lv\(level)buttondisabled"
-
+          ? (isPressed ? "lv\(level)buttondown" : "lv\(level)buttonup")
+          : "lv\(level)buttondisabled"
+          
           Image(imageName)
             .interpolation(.none)
             .resizable()
@@ -48,10 +48,4 @@ struct LevelSelectView: View {
       .padding()
     }
   }
-}
-
-#Preview {
-  LevelSelectView(onSelectLevel: { level in
-    print("Selected level \(level)")
-  })
 }

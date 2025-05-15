@@ -4,20 +4,20 @@ struct ContentView: View {
   @State private var screen: Screen = .title
   @State private var selectedLevel: Int?
   @AppStorage("unlockedLevel") private var unlockedLevel: Int = 1
-
+  
   enum Screen {
     case title
     case levelSelect
     case levelPlaying
   }
-
+  
   var body: some View {
     switch screen {
     case .title:
       TitleView(onStart: {
         screen = .levelSelect
       })
-
+      
     case .levelSelect:
       LevelSelectView(
         onSelectLevel: { level in
@@ -27,7 +27,7 @@ struct ContentView: View {
         unlockedLevel: unlockedLevel
       )
       .id(unlockedLevel)
-
+      
     case .levelPlaying:
       if let level = selectedLevel {
         switch level {
@@ -95,7 +95,7 @@ struct ContentView: View {
             Text("🚧 Level \(level) not implemented yet.")
               .font(.title)
               .padding()
-
+            
             Button("Back to Levels") {
               screen = .levelSelect
               selectedLevel = nil

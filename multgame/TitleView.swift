@@ -24,7 +24,7 @@ struct TitleView: View {
         Spacer()
         
         FadingImage(imageNames: titleImages, currentIndex: currentTitleIndex)
-                  .frame(width: 360, height: 200)
+          .frame(width: 360, height: 200)
         
         Text("An edutainment game by Hiro E.")
           .colorInvert()
@@ -37,7 +37,7 @@ struct TitleView: View {
           .interpolation(.none)
           .resizable()
           .frame(width: 280, height: 80)
-          .contentShape(Rectangle()) // Makes transparent areas tappable
+          .contentShape(Rectangle())
           .gesture(
             DragGesture(minimumDistance: 0)
               .onChanged { _ in isPressed = true }
@@ -46,8 +46,6 @@ struct TitleView: View {
                 onStart()
               }
           )
-
-        
         Spacer()
       }
     }
@@ -64,10 +62,10 @@ struct TitleView: View {
 struct FadingImage: View {
   let imageNames: [String]
   let currentIndex: Int
-
+  
   @State private var scale: CGFloat = 1.0
   @State private var angle: Double = 0
-
+  
   var body: some View {
     ZStack {
       Image(imageNames[currentIndex])
@@ -85,12 +83,8 @@ struct FadingImage: View {
           .repeatForever(autoreverses: true)
       ) {
         scale = 1.05
-        angle = 3  // Rotate slightly to the right, will auto reverse
+        angle = 3
       }
     }
   }
-}
-
-#Preview {
-  TitleView(onStart: {})
 }
