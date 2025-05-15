@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct Level5CoordinatorView: View {
+  let onComplete: () -> Void
   let onExit: () -> Void
 
   @State private var bossDefeated = false
@@ -21,14 +22,16 @@ struct Level5CoordinatorView: View {
         .foregroundColor(.white)
         .clipShape(Capsule())
       }
-    } else {
+    }
+    else {
       GameView(
-        problems: problems.shuffled(),   // ✅ shuffle for challenge
+        problems: problems.shuffled(),
         showHearts: true,
         onComplete: {
           bossDefeated = true
         },
-        onExit: onExit // ✅ pause menu exit
+        onExit: onExit,
+        level: 5
       )
       .id("boss-battle")
     }

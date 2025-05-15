@@ -2,10 +2,10 @@ import SwiftUI
 
 struct LevelSelectView: View {
   var onSelectLevel: (Int) -> Void
-  var unlockedLevel: Int = 5  // Optional: still here for future use
+  var unlockedLevel: Int = 1
 
   @State private var pressedLevel: Int? = nil
-
+  
   var body: some View {
     ZStack {
       Image("stonewall")
@@ -18,16 +18,18 @@ struct LevelSelectView: View {
         Spacer()
   
         ForEach(1...5, id: \.self) { level in
-          let isUnlocked = true  // For testing
+          let isUnlocked = level == 1 || level <= unlockedLevel
           let isPressed = pressedLevel == level
-          let imageName = isPressed ? "lv\(level)buttondown" : "lv\(level)buttonup"
-          
+
+          let imageName = isUnlocked
+            ? (isPressed ? "lv\(level)buttondown" : "lv\(level)buttonup")
+            : "lv\(level)buttondisabled"
+
           Image(imageName)
             .interpolation(.none)
             .resizable()
             .frame(width: 280, height: 80)
-            .opacity(isUnlocked ? 1.0 : 0.5)
-            .contentShape(Rectangle()) // Ensures entire image is tappable
+            .contentShape(Rectangle())
             .gesture(
               DragGesture(minimumDistance: 0)
                 .onChanged { _ in
@@ -41,7 +43,6 @@ struct LevelSelectView: View {
                 }
             )
         }
-
         Spacer()
       }
       .padding()

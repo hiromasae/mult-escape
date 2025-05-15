@@ -3,7 +3,7 @@ import SwiftUI
 struct ContentView: View {
   @State private var screen: Screen = .title
   @State private var selectedLevel: Int?
-  @State private var unlockedLevel: Int = 5
+  @AppStorage("unlockedLevel") private var unlockedLevel: Int = 1
 
   enum Screen {
     case title
@@ -26,39 +26,70 @@ struct ContentView: View {
         },
         unlockedLevel: unlockedLevel
       )
+      .id(unlockedLevel)
 
     case .levelPlaying:
       if let level = selectedLevel {
         switch level {
         case 1:
-              Level1CoordinatorView(onExit: {
-                if unlockedLevel < 2 { unlockedLevel = 2 }
-                screen = .levelSelect
-                selectedLevel = nil
-              })
+          Level1CoordinatorView(
+            onComplete: {
+              if unlockedLevel < 2 { unlockedLevel = 2 }
+              screen = .levelSelect
+              selectedLevel = nil
+            },
+            onExit: {
+              screen = .levelSelect
+              selectedLevel = nil
+            }
+          )
         case 2:
-          Level2CoordinatorView(onExit: {
-            if unlockedLevel < 3 { unlockedLevel = 3 }
-            screen = .levelSelect
-            selectedLevel = nil
-          })
+          Level2CoordinatorView(
+            onComplete: {
+              if unlockedLevel < 3 { unlockedLevel = 3 }
+              screen = .levelSelect
+              selectedLevel = nil
+            },
+            onExit: {
+              screen = .levelSelect
+              selectedLevel = nil
+            }
+          )
         case 3:
-          Level3CoordinatorView(onExit: {
-            if unlockedLevel < 4 { unlockedLevel = 4 }
-            screen = .levelSelect
-            selectedLevel = nil
-          })
+          Level3CoordinatorView(
+            onComplete: {
+              if unlockedLevel < 4 { unlockedLevel = 4 }
+              screen = .levelSelect
+              selectedLevel = nil
+            },
+            onExit: {
+              screen = .levelSelect
+              selectedLevel = nil
+            }
+          )
         case 4:
-          Level4CoordinatorView(onExit: {
-            if unlockedLevel < 5 { unlockedLevel = 5 }
-            screen = .levelSelect
-            selectedLevel = nil
-          })
+          Level4CoordinatorView(
+            onComplete: {
+              if unlockedLevel < 5 { unlockedLevel = 5 }
+              screen = .levelSelect
+              selectedLevel = nil
+            },
+            onExit: {
+              screen = .levelSelect
+              selectedLevel = nil
+            }
+          )
         case 5:
-          Level5CoordinatorView(onExit: {
-            screen = .levelSelect
-            selectedLevel = nil
-          })
+          Level5CoordinatorView(
+            onComplete: {
+              screen = .levelSelect
+              selectedLevel = nil
+            },
+            onExit: {
+              screen = .levelSelect
+              selectedLevel = nil
+            }
+          )
         default:
           VStack(spacing: 20) {
             Text("🚧 Level \(level) not implemented yet.")
